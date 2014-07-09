@@ -1,0 +1,27 @@
+---
+- name: enable nginx
+  service: name=nginx enabled=yes
+
+- name: start nginx
+  service: name=nginx state=started
+
+- name: restart nginx
+  service: name=nginx state=restarted
+
+- name: enable postgresql
+  service: name=postgresql enabled=yes
+
+- name: start postgresql
+  service: name=postgresql state=started
+
+- name: restart postgresql
+  service: name=postgresql state=restarted
+
+- name: enable php5-fpm
+  service: name=php5-fpm enabled=yes
+
+- name: start php5-fpm
+  service: name=php5-fpm state=started
+
+- name: restart php5-fpm
+  service: name=php5-fpm state=restarted

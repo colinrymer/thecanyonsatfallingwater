@@ -1,0 +1,10 @@
+---
+- hosts: all
+  sudo: yes
+
+  pre_tasks:
+    - apt: update_cache=yes
+  roles:
+    - lepp_stack
+    - drupal
+    - security

@@ -1,0 +1,37 @@
+---
+- name: install nginx web server
+  apt: pkg=nginx state=installed update_cache=true
+  notify:
+    - start nginx
+    - enable nginx
+
+- name: install postgresql
+  apt: pkg={{item}} state=installed
+  with_items:
+    - postgresql
+    - postgresql-contrib
+  notify:
+    - start postgresql
+    - enable postgresql
+
+- name: install php5 modules
+  apt: pkg={{item}} state=installed
+  with_items:
+    - php5-gd
+    - php5-pgsql
+
+- name: install php5-fpm
+  apt: pkg=php5-fpm state=installed
+  notify:
+    - start php5-fpm
+    - enable php5-fpm
+
+- name: make php safer
+  lineinfile: dest=/etc/php5/fpm/php.ini regexp="^cgi.fix_pathinfo=1" line="cgi.fix_pathinfo=0"
+  notify:
+    - restart php5-fpm
+
+- name: make php use a socket
+  lineinfile: dest=/etc/php5/fpm/pool.d/www.conf regexp="^listen = 127.0.0.1:9000" line="listen = /var/run/php5-fpm.sock"
+  notify:
+    - restart php5-fpm

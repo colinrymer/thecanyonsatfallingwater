@@ -1,0 +1,11 @@
+- name: reload ssh
+  service: name=sshd state=reloaded
+
+- name: enable fail2ban
+  service: name=fail2ban enabled=yes
+
+- name: start fail2ban
+  service: name=fail2ban state=started
+
+- name: restart fail2ban
+  service: name=fail2ban state=restarted
